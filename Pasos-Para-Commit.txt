@@ -1,0 +1,9 @@
+En Linux
+git add .
+git commit -m "Nombre del commit"
+git push
+
+En Windows
+git add .
+git commit -m "Nombre del commit"
+git push origin master
