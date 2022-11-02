@@ -1,0 +1,9 @@
+1
+mvn compile
+
+2
+mvn install
+
+3 (En prueba txt estan los datos de la estructura)
+java -jar target/proyecto2.jar prueba.txt
+(Esto debe generar en terminal un svg)
