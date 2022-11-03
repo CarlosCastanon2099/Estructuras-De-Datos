@@ -1,8 +1,7 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores;
+package mx.unam.ciencias.edd.proyecto2.graficadores.arboles;
 
-import mx.unam.ciencias.edd.ArbolRojinegro;
-import mx.unam.ciencias.edd.Color;
-import mx.unam.ciencias.edd.VerticeArbolBinario;
+import mx.unam.ciencias.edd.*;
+import mx.unam.ciencias.edd.proyecto2.graficadores.*;
 
 /**
  * Clase concreta para graficar la estructura de datos Árbol Binario Ordenado.
@@ -26,13 +25,10 @@ public class GraficadorArbolRojinegro<T extends Comparable<T>> extends Graficado
      * @param radio la medida del radio del vértice.
      * @return el texto con el SVG que representa al vértice rojinegro.
      */
-    protected String graficaVertice(VerticeArbolBinario<T> vertice, int centroX,
-                                    int centroY, int radio) {
+    protected String graficaVertice(VerticeArbolBinario<T> vertice, int centroX, int centroY, int radio) {
         // Es seguro hacer la audición, pues sabemos que el método solo se
         // invoca cuando el árbol es rojinegro.
         Color color = ((ArbolRojinegro<T>) arbol).getColor(vertice);
-        return GraficadorSVG.generaCirculoConTexto(centroX, centroY, radio,
-                "black", color == Color.ROJO ? "red" : "black", medidaContenidoVertice,
-                "white", vertice.get().toString());
+        return GraficadorSVG.generaCirculoConTexto(centroX, centroY, radio, "black", color == Color.ROJO ? "red" : "black", medidaContenidoVertice,"white", vertice.get().toString());
     }
 }

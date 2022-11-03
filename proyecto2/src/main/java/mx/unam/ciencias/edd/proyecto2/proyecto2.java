@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 
 import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto2.graficadores.*;
-
+import mx.unam.ciencias.edd.proyecto2.graficadores.arboles.*;
+import mx.unam.ciencias.edd.proyecto2.graficadores.otros.*;
 
 /**
  * Proyecto 2.

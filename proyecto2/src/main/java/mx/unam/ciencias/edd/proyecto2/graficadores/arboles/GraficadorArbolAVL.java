@@ -1,7 +1,7 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores;
+package mx.unam.ciencias.edd.proyecto2.graficadores.arboles;
 
-import mx.unam.ciencias.edd.ArbolAVL;
-import mx.unam.ciencias.edd.VerticeArbolBinario;
+import mx.unam.ciencias.edd.*;
+import mx.unam.ciencias.edd.proyecto2.graficadores.*;
 
 /**
  * Clase concreta para graficar la estructura de datos Árbol AVL.
@@ -25,7 +25,7 @@ public class GraficadorArbolAVL<T extends Comparable<T>> extends GraficadorArbol
     }
 
     /**
-     * Genera la cadena de texto que representa el SVG con el vértice recibido
+     * Genera el String que representa el SVG con el vértice recibido
      * y un texto que indica el balance. No tenemos un método en árbol AVL que
      * nos regrese el balance, por lo que recurrimos a analizar la
      * representación en cadena del vértice.

@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import mx.unam.ciencias.edd.Lista;
+import mx.unam.ciencias.edd.*;
 
 /**
  * Clase que utilizamos para encapsular los métodos correspondientes al
@@ -36,7 +36,7 @@ public class Entrada {
     public static void cierraEntrada(BufferedReader entrada) {
         try {
             entrada.close();
-        } catch(IOException ioe) { /* Ya no hay nada que hacer. */ }
+        } catch(IOException ioe) {}
     }
 
     /**
@@ -48,8 +48,8 @@ public class Entrada {
         String numero = "";
         int letraInt;
 
-        try {
-            while ((letraInt = entrada.read()) != -1) {
+        try{
+            while((letraInt = entrada.read()) != -1){
                 char letra = (char) letraInt;
 
                 // Ignoramos hasta el final de la línea si encontramos un #.
@@ -57,26 +57,16 @@ public class Entrada {
                     entrada.readLine();
                     continue;
                 }
-
-                // Ignoramos los caracteres no imprimibles y el espacio. Es
-                // decir, aquellos cuyo código ASCII corresponde a un valor
-                // igual o menor a 32.
-                // Fuente: https://web.itu.edu.tr/sgunduz/courses/mikroisl/ascii.html
-                if (letra <= 32) {
-                    // Si encontramos un separador, y tenemos un número en
-                    // string, lo convertimos a entero y se agrega a la lista.
-                    if (!numero.isEmpty())
+                if(letra <= 32) {
+                    if (!numero.isEmpty()){
                         coleccion.agrega(Integer.parseInt(numero));
-
+                    }
                     numero = "";
-                } else if (Character.isDigit(letra))
+                }else if(Character.isDigit(letra))
                         numero += String.valueOf(letra);
-                else if (Character.isDigit(letra))
-                    // Agrega a la cadena cualquier dígito.
+                else if(Character.isDigit(letra))
                     numero += String.valueOf(letra);
-                else {
-                    // Si no es dígito ni un caracter no imprimibles, tenemos
-                    // un error.
+                else{
                     System.out.printf("El archivo contiene el siguiente caracter no permitido: %c\n", letra);
                     System.exit(1);
                 }
@@ -90,43 +80,25 @@ public class Entrada {
         return coleccion;
     }
 
-    /**
-     * Método para identificar el nombre de la estructura de datos que será
-     * representada.
-     */
     public static Estructura identificaEstructura(BufferedReader entrada) {
         String estructuraString = "";
         char letra;
-
-        try {
-            while ((letra = (char) entrada.read()) != -1) {
-                // Ignoramos hasta el final de la línea si encontramos un #.
+        try{
+            while((letra = (char) entrada.read()) != -1){
                 if (letra == '#') {
                     entrada.readLine();
                     continue;
                 }
 
-                // Ignoramos los caracteres no imprimibles y el espacio. Es
-                // decir, aquellos cuyo código ASCII corresponde a un valor
-                // igual o menor a 32.
-                // Fuente: https://web.itu.edu.tr/sgunduz/courses/mikroisl/ascii.html
-                // Esto sucede solo cuando no hemos identificado la estructura
-                // de datos. Si ya tenemos el nombre, entra a otro caso.
-                if (estructuraString.isEmpty() && letra <= 32)
+                if(estructuraString.isEmpty() && letra <= 32){
                     continue;
-                // Tomamos en cuenta solo las letras minúsculas y mayúsculas.
-                else if ((65 <= letra && letra <= 90) || (97 <= letra && letra <= 122))
+                }else if((65 <= letra && letra <= 90) || (97 <= letra && letra <= 122))
                     estructuraString += letra;
-                // Cualquier otro caracter recibido al comienzo del archivo que
-                // no entra en las condiciones anteriores nos dice que hemos
-                // terminado de leer el nombre de la estructura. Regresamos el
-                // valor de la enumeración Estructura que corresponde al nombre
-                // recibido.
                 else
                     return Estructura.getEstructura(estructuraString);
             }
-        } catch (IOException ioe) {
-            System.out.println("Hubo un error al leer de la entrada.");
+        }catch(IOException ioe){
+            System.out.println("Error al leer la entrada.");
             System.exit(1);
         }
 

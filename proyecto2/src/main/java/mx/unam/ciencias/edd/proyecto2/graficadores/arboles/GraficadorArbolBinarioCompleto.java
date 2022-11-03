@@ -1,6 +1,7 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores;
+package mx.unam.ciencias.edd.proyecto2.graficadores.arboles;
 
-import mx.unam.ciencias.edd.ArbolBinarioCompleto;
+import mx.unam.ciencias.edd.*;
+import mx.unam.ciencias.edd.proyecto2.graficadores.*;
 
 /**
  * Clase concreta para graficar la estructura de datos Árbol Binario Completo.

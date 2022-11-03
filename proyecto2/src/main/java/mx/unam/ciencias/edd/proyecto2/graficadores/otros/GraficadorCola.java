@@ -1,6 +1,7 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores;
+package mx.unam.ciencias.edd.proyecto2.graficadores.otros;
 
 import mx.unam.ciencias.edd.Lista;
+import mx.unam.ciencias.edd.proyecto2.graficadores.*;
 
 /**
  * Clase concreta para graficar la estructura de datos Cola.

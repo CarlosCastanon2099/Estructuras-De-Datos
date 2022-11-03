@@ -8,110 +8,85 @@ import java.util.Iterator;
  */
 public abstract class GraficadorLineal<T> extends GraficadorEstructura<T> {
 
-    // Altura del contenedor de un vértice.
-    protected int ALTURA_VERTICE;
-    // Ancho del SVG que representa la conexión.
-    protected int ANCHO_CONEXION;
-    // EL tamaño de la fuente.
+    protected int verticeAltura;
     protected int medidaContenidoVertice;
-    // El tamaño del borde.
-    protected int BORDE;
-    // El número máximo de dígitos que un elemento puede tener.
-    protected int nMaximoEnVertice;
 
-    // El iterable a recorrer para agregar a la estructura de datos lineal.
+    protected int nMaximoEnVertice;
+    protected int anchoDeLaConexion;
+
+    protected int borde;
     protected Iterable<T> iterable;
 
-    /**
-     * El constructor de la clase abstracta. Simplemente asignamos el iterable
-     * a su variable de clase e inicializamos algunas constantes. Asumimos que
-     * cada clase concreta va a elegir el tipo más adecuado para recibir en su
-     * constructor, y que sea lineal.
-     * @param iterable el iterable a graficar.
-     */
-    public GraficadorLineal(Iterable<T> iterable) {
-        this.iterable = iterable;
-
-        ALTURA_VERTICE = 40;
-        ANCHO_CONEXION = 50;
-        medidaContenidoVertice = 20;
-        BORDE = 10;
-        nMaximoEnVertice = 3;
+    protected boolean esVacia(){
+        return !iterable.iterator().hasNext();
     }
 
     /**
-     * Obtén la cadena de texto de la gráfica SVG que corresponde a la
-     * estructura de datos.
-     * @return el SVG de la estructura de datos.
+     * Constructor de la clase abstracta
      */
-    public String graficarEstructura() {
+    public GraficadorLineal(Iterable<T> iterable){
+        verticeAltura = 40;
+        anchoDeLaConexion = 50;
+        medidaContenidoVertice = 20;
+        borde = 10;
+        nMaximoEnVertice = 3;
+        this.iterable = iterable;
+    }
+
+    /**
+     * Metodo para obténer el String de la gráfica SVG 
+     */
+    public String graficarEstructura(){
         int anchoVertice = calculaAnchoVertices();
         String svg = "";
         Iterator<T> iterador = iterable.iterator();
-        int anchoSVG = anchoVertice + BORDE;
+        int anchoSVG = anchoVertice + borde;
 
-        // Agregamos el primer elemento si este existe.
-        if (iterador.hasNext())
-            svg += graficaVertice(iterador.next(), BORDE, BORDE, anchoVertice, ALTURA_VERTICE);
-
-        while (iterador.hasNext()) {
-            // Grafica el SVG que corresponde a la conexión, y aumenta el
-            // tamaño del SVG.
-            svg += graficaConexion(anchoSVG, BORDE + (ALTURA_VERTICE / 4), ANCHO_CONEXION, ALTURA_VERTICE / 2);
-            anchoSVG += ANCHO_CONEXION;
-            // Grafica el SVG que corresponde al vértice, y aumenta el tamaño del SVG.
-            svg += graficaVertice(iterador.next(), anchoSVG, BORDE, anchoVertice, ALTURA_VERTICE);
-            anchoSVG += anchoVertice;
+        if(iterador.hasNext()){
+            svg += graficaVertice(iterador.next(), borde, borde, anchoVertice, verticeAltura);
         }
 
-        // Agrega la declaración XML, la etiqueta de apertura SVG con las
-        // medidas del gráfico, el contenido del SVG y la etiqueta de cierre
-        // del SVG. Regresa el resultado.
-        return GraficadorSVG.generaElInicioDelArchivo() +
-                GraficadorSVG.generaElInicioDelSVG(anchoSVG + BORDE, ALTURA_VERTICE + 2 * BORDE) +
-                svg +
-                GraficadorSVG.generaElTerminoDelSVG();
+        while(iterador.hasNext()){
+            svg += graficaConexion(anchoSVG, borde + (verticeAltura / 4), anchoDeLaConexion, verticeAltura / 2);
+            anchoSVG += anchoDeLaConexion;
+
+            svg += graficaVertice(iterador.next(), anchoSVG, borde, anchoVertice, verticeAltura);
+            anchoSVG += anchoVertice;
+
+        }
+
+        return GraficadorSVG.generaElInicioDelArchivo() + GraficadorSVG.generaElInicioDelSVG(anchoSVG + borde, verticeAltura + 2 * borde) + svg + GraficadorSVG.generaElTerminoDelSVG();
     }
 
     /**
-     * Método que nos sirve para calcular la medida del ancho de los vértices.
-     * Esto con la finalidad de que todos los tengan la misma medida. La medida
-     * se basa en el máximo de dígitos que un elemento puede tener.
-     * elementos.
+     * Método para calcular la medida del ancho de los vértices.
      */
-    protected int calculaAnchoVertices() {
-        return (nMaximoEnVertice * medidaContenidoVertice) + 2 * BORDE;
+    protected int calculaAnchoVertices(){
+        return (nMaximoEnVertice * medidaContenidoVertice) + 2 * borde;
     }
 
     /**
-     * Método que genera la cadena de texto que representa un vértice con el
-     * elemento recibido. Utiliza las medidas recibidas.
+     * Método para generar el String que representa un vértice con el
+     * elemento recibido. 
      */
-    protected String graficaVertice(T elemento, int origenX, int origenY, int medidaX, int medidaY) {
-        // Un vértice es simplemente un rectángulo que contiene el elemento.
-        return GraficadorSVG.generaRectanguloConTexto(origenX, origenY, medidaX,
-                medidaY, "black", "white", medidaContenidoVertice, "black", elemento.toString());
+    protected String graficaVertice(T elemento, int origenX, int origenY, int medidaX, int medidaY){
+        return GraficadorSVG.generaRectanguloConTexto(origenX, origenY, medidaX, medidaY, "black", "white", medidaContenidoVertice, "black", elemento.toString());
     }
 
     /**
-     * Genera la cadena de texto con el SVG que representa la unión entre dos
-     * vértices de la estructura de datos.
+     * Método para generar el String con el SVG que representa la unión entre dos
+     * vértices de la estructura en cuestion.
      */
-    protected String graficaConexion(int origenX, int origenY, int medidaX, int medidaY) {
-        // Una flecha se comprende por 2 terceras partes de la línea, y la
-        // cabeza ocupa una tercera parte de la longitud.
+    protected String graficaConexion(int origenX, int origenY, int medidaX, int medidaY){
         int seccion = medidaX / 3;
-
-        // Una flecha con una línea y un triángulo en el extremo derecho.
         String conexion;
+
         conexion = GraficadorSVG.generaLineaSVG(origenX, (medidaY / 2) + origenY, medidaX - seccion, 0, "black");
-        // Utilizamos -seccion para invertir la flecha sobre su eje x.
         conexion += GraficadorSVG.generaTriangulo(origenX + medidaX, origenY, -seccion, medidaY, "black");
 
         return conexion;
+
     }
 
-    protected boolean esVacia() {
-        return !iterable.iterator().hasNext();
-    }
+    
 }
