@@ -8,13 +8,10 @@ import mx.unam.ciencias.edd.proyecto2.graficadores.*;
  */
 public class GraficadorGrafica<T> extends GraficadorEstructura<T> {
 
-
     protected int medidaBordeSvg;
-
     protected int medidaBordeVertice;
 
     protected int medidaContenidoVertice;
-
     protected int nMaximoEnVertice;
 
     protected Grafica<T> grafica;
@@ -24,12 +21,9 @@ public class GraficadorGrafica<T> extends GraficadorEstructura<T> {
     }
 
     /**
-     * El constructor del graficador. Asignamos la gráfica a la variable de
-     * clase y algunas constantes.
-     * @param grafica la gráfica que se representará.
+     * El constructor del graficador.
      */
-    public GraficadorGrafica(Grafica<T> grafica) {
-        
+    public GraficadorGrafica(Grafica<T> grafica){
         medidaBordeVertice= 10;
         medidaContenidoVertice = 20;
         medidaBordeSvg = 10;
@@ -39,9 +33,25 @@ public class GraficadorGrafica<T> extends GraficadorEstructura<T> {
     }
 
     /**
-     * Genera el String del SVG que representa a la estructura de
-     * datos.
-     * @return el SVG de la estructura de datos.
+     * Clase interna privada que utilizamos para mantener las coordenadas en
+     * donde se ubica cada vértice, y poder graficar las aristas.
+     */
+    private class Coord {
+        public int x;
+        public int y;
+        public int posicion;
+        public T elemento;
+
+        public Coord(int x, int y, int posicion, T elemento) {
+            this.x = x;
+            this.y = y;
+            this.posicion = posicion;
+            this.elemento = elemento;
+        }
+    }
+
+    /**
+     * Genera el String del SVG que representa a la Grafica.
      */
     public String graficarEstructura() {
         int radioVertice = calculaRadioVertices();
@@ -86,39 +96,7 @@ public class GraficadorGrafica<T> extends GraficadorEstructura<T> {
         return GraficadorSVG.generaElInicioDelArchivo() + GraficadorSVG.generaElInicioDelSVG(medida, medida) + aristasSVG + verticesSVG + GraficadorSVG.generaElTerminoDelSVG();
     }
 
-    /**
-     * Clase interna privada que utilizamos para mantener las coordenadas en
-     * donde se ubica cada vértice, y poder graficar las aristas.
-     */
-    private class Coord {
-        public int x;
-        public int y;
-        public int posicion;
-        public T elemento;
-
-        public Coord(int x, int y, int posicion, T elemento) {
-            this.x = x;
-            this.y = y;
-            this.posicion = posicion;
-            this.elemento = elemento;
-        }
-    }
-
-
-    /**
-     * Método privado que nos dice si el vértice ya ha sido graficado, y nos da
-     * sus coordenadas. De otra manera, regresa null.
-     */
-    private Coord getCoordenada(VerticeGrafica<T> vertice, Lista<Coord> coordenadas) {
-        for(Coord coord : coordenadas){
-            if (coord.elemento.equals(vertice.get())){
-                return coord;
-            }
-        }
-            
-        return null;
-
-    }
+    
 
     /**
      * Método que nos sirve para calcular la medida del ancho de los vértices.
@@ -134,8 +112,22 @@ public class GraficadorGrafica<T> extends GraficadorEstructura<T> {
      * elemento recibido. Utiliza las medidas recibidas.
      */
     protected String graficaVertice(T elemento, int origenX, int origenY, int radio) {
-        // Un vértice es un círculo que contiene el elemento.
         return GraficadorSVG.generaCirculoConTexto(origenX, origenY, radio, "black", "white", medidaContenidoVertice, "black", elemento.toString());
+    }
+
+    /**
+     * Método privado que nos dice si el vértice ya ha sido graficado
+     * a lo que nos da sus coordenadas, en otro caso arroja null.
+     */
+    private Coord getCoordenada(VerticeGrafica<T> vertice, Lista<Coord> coordenadas) {
+        for(Coord coord : coordenadas){
+            if (coord.elemento.equals(vertice.get())){
+                return coord;
+            }
+        }
+            
+        return null;
+
     }
 
     /**

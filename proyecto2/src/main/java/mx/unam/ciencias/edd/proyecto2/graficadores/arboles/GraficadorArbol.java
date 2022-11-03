@@ -23,15 +23,13 @@ public abstract class GraficadorArbol<T> extends GraficadorEstructura<T> {
     }
 
     /**
-     * Clase interna privada que utilizamos únicamente por conveniencia al
-     * momento de guardar las coordenadas de un vértice, para poder crear la
-     * arista con sus vecinos.
+     * Clase interna privada para saber las coordenadas de un vértice
      */
-    private class Coord {
+    private class Coord{
         public int x;
         public int y;
 
-        public Coord(int x, int y) {
+        public Coord(int x, int y){
             this.x = x;
             this.y = y;
         }
@@ -40,7 +38,7 @@ public abstract class GraficadorArbol<T> extends GraficadorEstructura<T> {
     /**
      * El constructor del graficador. 
      */
-    public GraficadorArbol(ArbolBinario<T> arbol) {
+    public GraficadorArbol(ArbolBinario<T> arbol){
         medidaContenidoVertice = 20;
         medidaBordeSvg = 10;
         medidaBordeVertice = 10;
@@ -54,12 +52,18 @@ public abstract class GraficadorArbol<T> extends GraficadorEstructura<T> {
     /**
      * Metodo para obténer el String de la gráfica SVG de la estructura en cuestion
      */
-    public String graficarEstructura() {
+    public String graficarEstructura(){
         Pila<VerticeArbolBinario<T>> pilaVertices = new Pila<>();
         Pila<Integer> pilaNivel = new Pila<>();
         Pila<Coord> pilaCoords = new Pila<>();
 
-        VerticeArbolBinario<T> vertice = arbol.esVacia() ? null : arbol.raiz();
+        VerticeArbolBinario<T> vertice;
+        if(arbol.esVacia()){
+            vertice = null;
+        }else{
+            vertice = arbol.raiz();
+        }
+            
         meteRamaIzquierda(pilaVertices, vertice, pilaNivel, 0);
 
         String vertices = "";
@@ -100,7 +104,9 @@ public abstract class GraficadorArbol<T> extends GraficadorEstructura<T> {
     protected int calculaRadioVertices(){
         int medidaTexto = nMaximoEnVertice * medidaContenidoVertice;
         int radio = (int) Math.ceil(medidaTexto / 2);
+        
         return radio + medidaBordeVertice;
+
     }
 
     /**

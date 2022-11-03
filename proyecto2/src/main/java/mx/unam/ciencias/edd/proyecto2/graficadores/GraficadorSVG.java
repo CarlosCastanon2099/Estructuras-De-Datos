@@ -1,9 +1,8 @@
 package mx.unam.ciencias.edd.proyecto2.graficadores;
 
 /**
- * Clase con varios métodos que nos permiten generar el SVG de varios
- * componentes que utilizamos para las gráficas en distintos puntos del
- * programa.
+ * Clase con varios métodos que nos permiten generar el SVG 
+ *  para las gráficas de las estructuras de datos.
  */
 public class GraficadorSVG {
 
@@ -15,40 +14,27 @@ public class GraficadorSVG {
 
     /**
      * Método que regresa la cadena para declarar que estamos utilizando XML.
-     * @return la declaración XML.
      */
     public static String generaElInicioDelArchivo() {
         return "<?xml version='1.0' encoding='UTF-8' ?>";
     }
 
     /**
-     * Genera la etiqueta de apertura de un SVG con sus respectivas medidas.
-     * Agrega una etiqueta de grupo.
-     * @param medidaX la medida del eje X del SVG.
-     * @param medidaY la medida del eje Y del SVG.
-     * @return la etiqueta de apertura de SVG.
+     * Metodo para generar el inicio de un SVG con sus respectivas medidas.
      */
     public static String generaElInicioDelSVG(int medidaX, int medidaY) {
         return String.format("<svg width='%d' height='%d'><g>", medidaX, medidaY);
     }
 
     /**
-     * Regresa la etiqueta de cerradura de SVG, y de cerradura de grupo para no
-     * tener que escribirla directamente en otras partes del programa.
-     * @return la etiqueta de cerradura de SVG.
+     * Metodo para generar el termino de un SVG 
      */
     public static String generaElTerminoDelSVG() {
         return "</g></svg>";
     }
 
     /**
-     * Genera el SVG de una línea con las coordenadas y el color recibidos.
-     * @param origenX la coordenada X donde comienza la línea.
-     * @param origenY la coordenada Y donde comienza la línea.
-     * @param cambioX el cambio en el eje X de la pendiente de la línea.
-     * @param cambioY el cambio en el eje Y de la pendiente de la línea.
-     * @param color el color de la línea.
-     * @return el SVG de la línea que corresponde a los parámetros recibidos.
+     * Metodo para generar el SVG de una línea con las coordenadas y el color recibidos.
      */
     public static String generaLineaSVG(int origenX, int origenY, int cambioX, int cambioY, String color) {
         return String.format("<line x1='%d' y1='%d' x2='%d' y2='%d'" + " stroke='%s' stroke-width='3' />", origenX, origenY, origenX + cambioX, origenY + cambioY, color);
@@ -56,19 +42,9 @@ public class GraficadorSVG {
 
 
     /**
-     * Genera el SVG de un triángulo isósceles horizontal contenido dentro del
+     * Metodo para generar el SVG de un triángulo isósceles horizontal contenido dentro del
      * rectángulo que se genera con un punto de origen, y el cambio en los ejes
      * X y Y.
-     * @param origenX la coordenada X donde comienza el rectángulo que contiene
-     * al triángulo.
-     * @param origenY la coordenada Y donde comienza el rectángulo que contiene
-     * al triángulo.
-     * @param medidaX la medida en el eje X del rectángulo que contiene al
-     * triángulo.
-     * @param medidaY la medida en el eje Y del rectángulo que contiene al
-     * triángulo.
-     * @param color el color del triángulo.
-     * @return el SVG del triángulo que corresponde a los parámetros recibidos.
      */
     public static String generaTriangulo(int origenX, int origenY, int medidaX, int medidaY, String color) {
         return String.format("<polygon points='%d,%d %d,%d %d,%d' fill='%s' />", origenX, (medidaY / 2) + origenY, origenX + medidaX, origenY, origenX + medidaX, origenY + medidaY, color);
@@ -77,17 +53,6 @@ public class GraficadorSVG {
     /**
      * Genera el SVG de un rectángulo que contiene texto centrado en ambos
      * ejes.
-     * @param origenX la coordenada X donde comienza el rectángulo.
-     * @param origenY la coordenada Y donde comienza el rectángulo.
-     * @param medidaX la medida en el eje X del rectángulo.
-     * @param medidaY la medida en el eje Y del rectángulo.
-     * @param colorBorde el color del borde del rectángulo.
-     * @param colorRelleno el color del relleno del rectángulo.
-     * @param tamanoFuente el tamaño de la fuente del texto.
-     * @param colorFuente el color de la fuente del texto.
-     * @param contenido el texto.
-     * @return el SVG del rectángulo con las propiedades recibidas en los
-     * argumentos, que contiene el texto recibido.
      */
     public static String generaRectanguloConTexto(int origenX, int origenY, int medidaX, int medidaY, String colorBorde, String colorRelleno, int tamanoFuente, String colorFuente, String contenido) {
         String svg = String.format("<rect x='%d' y='%d' width='%d' height='%d' stroke='%s' fill='%s' />", origenX, origenY, medidaX, medidaY, colorBorde, colorRelleno);
@@ -97,13 +62,6 @@ public class GraficadorSVG {
 
     /**
      * Genera el SVG de un círculo.
-     * @param centroX la coordenada X del centro del círculo.
-     * @param centroY la coordenada Y del centro del círculo.
-     * @param radio la medida del radio.
-     * @param colorBorde el color del borde del círculo.
-     * @param colorRelleno el color del relleno del círculo.
-     * @return el SVG del círculo con las propiedades recibidas en los
-     * argumentos.
      */
     public static String generaCirculo(int centroX, int centroY, int radio,
                                         String colorBorde, String colorRelleno) {
@@ -112,16 +70,6 @@ public class GraficadorSVG {
 
     /**
      * Genera el SVG de un círculo que contiene texto centrado en ambos ejes.
-     * @param centroX la coordenada X del centro del círculo.
-     * @param centroY la coordenada Y del centro del círculo.
-     * @param radio la medida del radio.
-     * @param colorBorde el color del borde del círculo.
-     * @param colorRelleno el color del relleno del círculo.
-     * @param tamanoFuente el tamaño de la fuente del texto.
-     * @param colorFuente el color de la fuente del texto.
-     * @param contenido el texto.
-     * @return el SVG del círculo con las propiedades recibidas en los
-     * argumentos, que contiene el texto recibido.
      */
     public static String generaCirculoConTexto(int centroX, int centroY, int radio, String colorBorde, String colorRelleno, int tamanoFuente, String colorFuente, String contenido) {
         String svg = generaCirculo(centroX, centroY, radio, colorBorde, colorRelleno);
@@ -131,13 +79,6 @@ public class GraficadorSVG {
 
     /**
      * Genera el SVG de un cuadro de texto.
-     * @param centroX la coordenada X del centro del círculo.
-     * @param centroY la coordenada Y del centro del círculo.
-     * @param tamanoFuente el tamaño de la fuente del texto.
-     * @param colorFuente el color de la fuente del texto.
-     * @param contenido el texto.
-     * @return el SVG del círculo con las propiedades recibidas en los
-     * argumentos, que contiene el texto recibido.
      */
     public static String graficaTexto(int centroX, int centroY, int tamanoFuente, String colorFuente, String contenido) {
         return String.format("<text x='%d' y='%d' text-anchor='middle'" + " font-family='Courier New' font-size='%d' fill='%s'>%s</text>", centroX, centroY + 5, tamanoFuente, colorFuente, contenido);

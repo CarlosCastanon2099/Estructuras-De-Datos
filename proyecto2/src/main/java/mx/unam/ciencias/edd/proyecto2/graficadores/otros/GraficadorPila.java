@@ -4,14 +4,12 @@ import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto2.graficadores.*;
 
 /**
- * Clase concreta para graficar la estructura de datos Cola.
+ * Clase  para graficar  pilas.
  */
 public class GraficadorPila<T> extends GraficadorLineal<T> {
 
     /**
-     * Constructor que recibe la lista con los datos que contiene la Pila que
-     * queremos graficar.
-     * @param coleccion la lista con la información a graficar.
+     * Constructor que recibe la pila que será graficada.
      */
     public GraficadorPila(Lista<T> coleccion) {
         super(coleccion);
