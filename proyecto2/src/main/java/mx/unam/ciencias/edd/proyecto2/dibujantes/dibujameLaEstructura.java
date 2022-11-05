@@ -1,11 +1,11 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores;
+package mx.unam.ciencias.edd.proyecto2.dibujantes;
 
 /**
  * Clase abstracta encargada de graficar las estructuras correspondientes
  * cuya funcion es la de que la implementen las demas estructuras para
  * tener una grafica adecuada
  */
-public abstract class GraficadorEstructura<T> {
+public abstract class dibujameLaEstructura<T> {
 
     private int gorduraBorde = 20;
     private int ladoAuxiliar = 55;
@@ -25,7 +25,7 @@ public abstract class GraficadorEstructura<T> {
     }
 
     protected String graficarVacio(){
-        return GraficadorSVG.generaElInicioDelArchivo() + GraficadorSVG.generaElInicioDelSVG(ladoAuxiliar + (2 * gorduraBorde), ladoAuxiliar + (2 * gorduraBorde)) + GraficadorSVG.generaCirculo(gorduraBorde + ladoAuxiliar / 2, gorduraBorde + ladoAuxiliar / 2, ladoAuxiliar / 2, "black", "white") + GraficadorSVG.generaLineaSVG(gorduraBorde, gorduraBorde + ladoAuxiliar, ladoAuxiliar, -ladoAuxiliar, "black") + GraficadorSVG.generaElTerminoDelSVG();
+        return dibujaSVG.generaElInicioDelArchivo() + dibujaSVG.generaElInicioDelSVG(ladoAuxiliar + (2 * gorduraBorde), ladoAuxiliar + (2 * gorduraBorde)) + dibujaSVG.generaCirculo(gorduraBorde + ladoAuxiliar / 2, gorduraBorde + ladoAuxiliar / 2, ladoAuxiliar / 2, "black", "white") + dibujaSVG.generaLineaSVG(gorduraBorde, gorduraBorde + ladoAuxiliar, ladoAuxiliar, -ladoAuxiliar, "black") + dibujaSVG.generaElTerminoDelSVG();
     }
 
     

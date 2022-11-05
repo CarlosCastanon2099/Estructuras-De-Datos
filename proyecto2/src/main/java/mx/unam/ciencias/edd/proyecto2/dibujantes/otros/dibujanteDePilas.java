@@ -1,17 +1,17 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores.otros;
+package mx.unam.ciencias.edd.proyecto2.dibujantes.otros;
 
 import mx.unam.ciencias.edd.*;
-import mx.unam.ciencias.edd.proyecto2.graficadores.*;
+import mx.unam.ciencias.edd.proyecto2.dibujantes.*;
 
 /**
  * Clase  para graficar  pilas.
  */
-public class GraficadorPila<T> extends GraficadorLineal<T> {
+public class dibujanteDePilas<T> extends dibujanteDeFiguras<T> {
 
     /**
      * Constructor que recibe la pila que será graficada.
      */
-    public GraficadorPila(Lista<T> coleccion) {
+    public dibujanteDePilas(Lista<T> coleccion) {
         super(coleccion);
     }
 
@@ -29,7 +29,7 @@ public class GraficadorPila<T> extends GraficadorLineal<T> {
             alturaSVG -= verticeAltura;
             svg += graficaVertice(elemento, borde, alturaSVG, anchoVertice, verticeAltura);
         }
-        return GraficadorSVG.generaElInicioDelArchivo() + GraficadorSVG.generaElInicioDelSVG(anchoVertice + 2 * borde, coleccion.getLongitud() * verticeAltura + 2 * borde) + svg + GraficadorSVG.generaElTerminoDelSVG();
+        return dibujaSVG.generaElInicioDelArchivo() + dibujaSVG.generaElInicioDelSVG(anchoVertice + 2 * borde, coleccion.getLongitud() * verticeAltura + 2 * borde) + svg + dibujaSVG.generaElTerminoDelSVG();
 
     }
 }

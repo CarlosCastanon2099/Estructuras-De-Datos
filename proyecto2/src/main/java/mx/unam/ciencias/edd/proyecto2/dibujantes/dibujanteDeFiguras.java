@@ -1,12 +1,12 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores;
+package mx.unam.ciencias.edd.proyecto2.dibujantes;
 
 import java.util.Iterator;
 
 /**
- * Clase abstracta de la que heredan las clases concretas de graficadores que
+ * Clase abstracta de la que heredan las clases concretas de dibujantes que
  * corresponden a estructuras de datos lineales.
  */
-public abstract class GraficadorLineal<T> extends GraficadorEstructura<T> {
+public abstract class dibujanteDeFiguras<T> extends dibujameLaEstructura<T> {
 
     protected int verticeAltura;
     protected int medidaContenidoVertice;
@@ -24,7 +24,7 @@ public abstract class GraficadorLineal<T> extends GraficadorEstructura<T> {
     /**
      * Constructor de la clase abstracta
      */
-    public GraficadorLineal(Iterable<T> iterable){
+    public dibujanteDeFiguras(Iterable<T> iterable){
         verticeAltura = 40;
         anchoDeLaConexion = 50;
         medidaContenidoVertice = 20;
@@ -56,7 +56,7 @@ public abstract class GraficadorLineal<T> extends GraficadorEstructura<T> {
 
         }
 
-        return GraficadorSVG.generaElInicioDelArchivo() + GraficadorSVG.generaElInicioDelSVG(anchoSVG + borde, verticeAltura + 2 * borde) + svg + GraficadorSVG.generaElTerminoDelSVG();
+        return dibujaSVG.generaElInicioDelArchivo() + dibujaSVG.generaElInicioDelSVG(anchoSVG + borde, verticeAltura + 2 * borde) + svg + dibujaSVG.generaElTerminoDelSVG();
     }
 
     /**
@@ -71,7 +71,7 @@ public abstract class GraficadorLineal<T> extends GraficadorEstructura<T> {
      * elemento recibido. 
      */
     protected String graficaVertice(T elemento, int origenX, int origenY, int medidaX, int medidaY){
-        return GraficadorSVG.generaRectanguloConTexto(origenX, origenY, medidaX, medidaY, "black", "white", medidaContenidoVertice, "black", elemento.toString());
+        return dibujaSVG.generaRectanguloConTexto(origenX, origenY, medidaX, medidaY, "black", "white", medidaContenidoVertice, "black", elemento.toString());
     }
 
     /**
@@ -82,8 +82,8 @@ public abstract class GraficadorLineal<T> extends GraficadorEstructura<T> {
         int seccion = medidaX / 3;
         String conexion;
 
-        conexion = GraficadorSVG.generaLineaSVG(origenX, (medidaY / 2) + origenY, medidaX - seccion, 0, "black");
-        conexion += GraficadorSVG.generaTriangulo(origenX + medidaX, origenY, -seccion, medidaY, "black");
+        conexion = dibujaSVG.generaLineaSVG(origenX, (medidaY / 2) + origenY, medidaX - seccion, 0, "black");
+        conexion += dibujaSVG.generaTriangulo(origenX + medidaX, origenY, -seccion, medidaY, "black");
 
         return conexion;
 

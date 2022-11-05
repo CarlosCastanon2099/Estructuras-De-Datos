@@ -1,11 +1,11 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores.arboles;
+package mx.unam.ciencias.edd.proyecto2.dibujantes.arboles;
 
 import mx.unam.ciencias.edd.*;
-import mx.unam.ciencias.edd.proyecto2.graficadores.*;
+import mx.unam.ciencias.edd.proyecto2.dibujantes.*;
 /**
  * Clase abstracta para graficar la estructura de datos ArbolBinario. 
  */
-public abstract class GraficadorArbol<T> extends GraficadorEstructura<T> {
+public abstract class dibujanteDeArbol<T> extends dibujameLaEstructura<T> {
 
     protected int medidaBordeSvg;
     protected int medidaContenidoVertice;
@@ -38,7 +38,7 @@ public abstract class GraficadorArbol<T> extends GraficadorEstructura<T> {
     /**
      * El constructor del graficador. 
      */
-    public GraficadorArbol(ArbolBinario<T> arbol){
+    public dibujanteDeArbol(ArbolBinario<T> arbol){
         medidaContenidoVertice = 20;
         medidaBordeSvg = 10;
         medidaBordeVertice = 10;
@@ -94,7 +94,7 @@ public abstract class GraficadorArbol<T> extends GraficadorEstructura<T> {
 
         }
 
-        return GraficadorSVG.generaElInicioDelArchivo() + GraficadorSVG.generaElInicioDelSVG(anchoSVG - desplazaX + medidaBordeSvg, alturaSVG) + aristas + vertices + GraficadorSVG.generaElTerminoDelSVG();
+        return dibujaSVG.generaElInicioDelArchivo() + dibujaSVG.generaElInicioDelSVG(anchoSVG - desplazaX + medidaBordeSvg, alturaSVG) + aristas + vertices + dibujaSVG.generaElTerminoDelSVG();
     }
 
     /**
@@ -113,7 +113,7 @@ public abstract class GraficadorArbol<T> extends GraficadorEstructura<T> {
      * Metodo para generar el String que representa en SVG el vértice recibido,
      */
     protected String graficaVertice(VerticeArbolBinario<T> vertice, int centroX, int centroY, int radio){
-        return GraficadorSVG.generaCirculoConTexto(centroX, centroY, radio, "black", "white", medidaContenidoVertice, "black", vertice.get().toString());
+        return dibujaSVG.generaCirculoConTexto(centroX, centroY, radio, "black", "white", medidaContenidoVertice, "black", vertice.get().toString());
     }
 
     /**
@@ -173,7 +173,7 @@ public abstract class GraficadorArbol<T> extends GraficadorEstructura<T> {
      * vértices del árbol.
      */
     protected String graficaConexion(int centroX1, int centroY1, int centroX2, int centroY2){
-        return GraficadorSVG.generaLineaSVG(centroX1, centroY1, centroX2 - centroX1, centroY2 - centroY1, "black");
+        return dibujaSVG.generaLineaSVG(centroX1, centroY1, centroX2 - centroX1, centroY2 - centroY1, "black");
     }
 
 

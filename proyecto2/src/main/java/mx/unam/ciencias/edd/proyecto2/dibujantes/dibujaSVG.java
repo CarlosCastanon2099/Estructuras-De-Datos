@@ -1,16 +1,16 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores;
+package mx.unam.ciencias.edd.proyecto2.dibujantes;
 
 /**
  * Clase con varios métodos que nos permiten generar el SVG 
  *  para las gráficas de las estructuras de datos.
  */
-public class GraficadorSVG {
+public class dibujaSVG {
 
     /**
      * Constructor privado para asegurar que la clase se utilice únicamente de
      * manera estática.
      */
-    private GraficadorSVG() {}
+    private dibujaSVG() {}
 
     /**
      * Método que regresa la cadena para declarar que estamos utilizando XML.

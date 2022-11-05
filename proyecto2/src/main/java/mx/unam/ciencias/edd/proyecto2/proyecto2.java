@@ -3,9 +3,9 @@ package mx.unam.ciencias.edd.proyecto2;
 import java.io.BufferedReader;
 
 import mx.unam.ciencias.edd.*;
-import mx.unam.ciencias.edd.proyecto2.graficadores.*;
-import mx.unam.ciencias.edd.proyecto2.graficadores.arboles.*;
-import mx.unam.ciencias.edd.proyecto2.graficadores.otros.*;
+import mx.unam.ciencias.edd.proyecto2.dibujantes.*;
+import mx.unam.ciencias.edd.proyecto2.dibujantes.arboles.*;
+import mx.unam.ciencias.edd.proyecto2.dibujantes.otros.*;
 
 /**
  * Clase Main del proyecto 2.
@@ -74,38 +74,38 @@ public class proyecto2 {
         Entrada.cierraEntrada(flujoEntrada);
 
 
-        GraficadorEstructura<Integer> graficador;
+        dibujameLaEstructura<Integer> graficador;
         switch(estructuraDeDatos){
             case estructuraLista:
-            graficador = new GraficadorLista<>(datos);
+            graficador = new dibujanteDeListas<>(datos);
             break;
 
             case estructuraPila:
-            graficador = new GraficadorPila<>(datos);
+            graficador = new dibujanteDePilas<>(datos);
             break;
 
             case estructuraCola:
-            graficador = new GraficadorCola<>(datos);
+            graficador = new dibujanteDeColas<>(datos);
             break;
 
             case estructuraArbolBinarioOrdenado:
-            graficador = new GraficadorArbolBinarioOrdenado<>(new ArbolBinarioOrdenado<>(datos));
+            graficador = new dibujanteDeArbolBinarioOrdenado<>(new ArbolBinarioOrdenado<>(datos));
             break;
 
             case estructuraArbolBinarioCompleto:
-            graficador = new GraficadorArbolBinarioCompleto<>(new ArbolBinarioCompleto<>(datos));
+            graficador = new dibujanteDeArbolBinarioCompleto<>(new ArbolBinarioCompleto<>(datos));
             break;
 
             case estructuraArbolRojinegro:
-            graficador = new GraficadorArbolRojinegro<>(new ArbolRojinegro<>(datos));
+            graficador = new dibujanteDeArbolRojinegro<>(new ArbolRojinegro<>(datos));
             break;
 
             case estructuraArbolAvl:
-            graficador = new GraficadorArbolAVL<>(new ArbolAVL<>(datos));
+            graficador = new dibujanteDeArbolAVL<>(new ArbolAVL<>(datos));
             break;
 
             case estructuraGrafica:
-            graficador = new GraficadorGrafica<>(construyeGrafica(datos));
+            graficador = new dibujanteDeGraficas<>(construyeGrafica(datos));
             break;
 
             default:

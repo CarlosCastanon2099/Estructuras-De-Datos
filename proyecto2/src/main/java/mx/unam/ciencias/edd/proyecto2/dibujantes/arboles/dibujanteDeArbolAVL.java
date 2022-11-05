@@ -1,12 +1,12 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores.arboles;
+package mx.unam.ciencias.edd.proyecto2.dibujantes.arboles;
 
 import mx.unam.ciencias.edd.*;
-import mx.unam.ciencias.edd.proyecto2.graficadores.*;
+import mx.unam.ciencias.edd.proyecto2.dibujantes.*;
 
 /**
  * Clase para graficar Árboles AVL
  */
-public class GraficadorArbolAVL<T extends Comparable<T>> extends GraficadorArbolBinarioOrdenado<T> {
+public class dibujanteDeArbolAVL<T extends Comparable<T>> extends dibujanteDeArbolBinarioOrdenado<T> {
 
     private final int medidaContenidoVerticeBal = 15;
     private final int medidaDelDesp = 10;
@@ -14,7 +14,7 @@ public class GraficadorArbolAVL<T extends Comparable<T>> extends GraficadorArbol
     /**
      * Constructor del graficador de Árboles AVL
      */
-    public GraficadorArbolAVL(ArbolAVL<T> arbol){
+    public dibujanteDeArbolAVL(ArbolAVL<T> arbol){
         super(arbol);
         medidaBordeSvg = 34;
 
@@ -37,8 +37,8 @@ public class GraficadorArbolAVL<T extends Comparable<T>> extends GraficadorArbol
             centroTextoX += - (int) Math.ceil(balance.length() / 2) * medidaContenidoVerticeBal;
   
         String resultado = "";
-        resultado += GraficadorSVG.graficaTexto(centroTextoX, centroY - radio - medidaDelDesp, medidaContenidoVerticeBal, "black", balance);
-        resultado += GraficadorSVG.generaCirculoConTexto(centroX, centroY, radio, "black", "white", medidaContenidoVertice, "black", vertice.get().toString());
+        resultado += dibujaSVG.graficaTexto(centroTextoX, centroY - radio - medidaDelDesp, medidaContenidoVerticeBal, "black", balance);
+        resultado += dibujaSVG.generaCirculoConTexto(centroX, centroY, radio, "black", "white", medidaContenidoVertice, "black", vertice.get().toString());
 
         return resultado;
     }

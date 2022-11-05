@@ -1,12 +1,12 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores.otros;
+package mx.unam.ciencias.edd.proyecto2.dibujantes.otros;
 
 import mx.unam.ciencias.edd.*;
-import mx.unam.ciencias.edd.proyecto2.graficadores.*;
+import mx.unam.ciencias.edd.proyecto2.dibujantes.*;
 
 /**
  * Clase para producir el svg de la estructura en cuestion
  */
-public class GraficadorGrafica<T> extends GraficadorEstructura<T> {
+public class dibujanteDeGraficas<T> extends dibujameLaEstructura<T> {
 
     protected int medidaBordeSvg;
     protected int medidaBordeVertice;
@@ -23,7 +23,7 @@ public class GraficadorGrafica<T> extends GraficadorEstructura<T> {
     /**
      * El constructor del graficador.
      */
-    public GraficadorGrafica(Grafica<T> grafica){
+    public dibujanteDeGraficas(Grafica<T> grafica){
         medidaBordeVertice= 10;
         medidaContenidoVertice = 20;
         medidaBordeSvg = 10;
@@ -93,7 +93,7 @@ public class GraficadorGrafica<T> extends GraficadorEstructura<T> {
         }
 
         int medida = radioGrafica * 2;
-        return GraficadorSVG.generaElInicioDelArchivo() + GraficadorSVG.generaElInicioDelSVG(medida, medida) + aristasSVG + verticesSVG + GraficadorSVG.generaElTerminoDelSVG();
+        return dibujaSVG.generaElInicioDelArchivo() + dibujaSVG.generaElInicioDelSVG(medida, medida) + aristasSVG + verticesSVG + dibujaSVG.generaElTerminoDelSVG();
     }
 
     
@@ -112,7 +112,7 @@ public class GraficadorGrafica<T> extends GraficadorEstructura<T> {
      * elemento recibido. Utiliza las medidas recibidas.
      */
     protected String graficaVertice(T elemento, int origenX, int origenY, int radio) {
-        return GraficadorSVG.generaCirculoConTexto(origenX, origenY, radio, "black", "white", medidaContenidoVertice, "black", elemento.toString());
+        return dibujaSVG.generaCirculoConTexto(origenX, origenY, radio, "black", "white", medidaContenidoVertice, "black", elemento.toString());
     }
 
     /**
@@ -139,9 +139,9 @@ public class GraficadorGrafica<T> extends GraficadorEstructura<T> {
      */
     protected String graficaConexion(Coord vertice1, Coord vertice2, int radioGrafica) {
         if (Math.abs(vertice1.posicion - vertice2.posicion) == 1){
-            return GraficadorSVG.generaLineaSVG(vertice1.x, vertice1.y, vertice2.x - vertice1.x, vertice2.y - vertice1.y, "black");
+            return dibujaSVG.generaLineaSVG(vertice1.x, vertice1.y, vertice2.x - vertice1.x, vertice2.y - vertice1.y, "black");
         }
-        return GraficadorSVG.generaLineaSVG(vertice1.x, vertice1.y, vertice2.x - vertice1.x, vertice2.y - vertice1.y, "red");                    
+        return dibujaSVG.generaLineaSVG(vertice1.x, vertice1.y, vertice2.x - vertice1.x, vertice2.y - vertice1.y, "red");                    
     }
 
     

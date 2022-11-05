@@ -1,17 +1,17 @@
-package mx.unam.ciencias.edd.proyecto2.graficadores.arboles;
+package mx.unam.ciencias.edd.proyecto2.dibujantes.arboles;
 
 import mx.unam.ciencias.edd.*;
-import mx.unam.ciencias.edd.proyecto2.graficadores.*;
+import mx.unam.ciencias.edd.proyecto2.dibujantes.*;
 
 /**
  * Clase para graficar Árboles Rojinegros
  */
-public class GraficadorArbolRojinegro<T extends Comparable<T>> extends GraficadorArbolBinarioOrdenado<T> {
+public class dibujanteDeArbolRojinegro<T extends Comparable<T>> extends dibujanteDeArbolBinarioOrdenado<T> {
 
     /**
      * Constructor del graficador de Árboles Rojinegros
      */
-    public GraficadorArbolRojinegro(ArbolRojinegro<T> arbol) {
+    public dibujanteDeArbolRojinegro(ArbolRojinegro<T> arbol) {
         super(arbol);
 
     }
@@ -23,7 +23,7 @@ public class GraficadorArbolRojinegro<T extends Comparable<T>> extends Graficado
     protected String graficaVertice(VerticeArbolBinario<T> vertice, int centroX, int centroY, int radio) {
         Color color = ((ArbolRojinegro<T>) arbol).getColor(vertice);
         
-        return GraficadorSVG.generaCirculoConTexto(centroX, centroY, radio, "black", color == Color.ROJO ? "red" : "black", medidaContenidoVertice,"white", vertice.get().toString());
+        return dibujaSVG.generaCirculoConTexto(centroX, centroY, radio, "black", color == Color.ROJO ? "red" : "black", medidaContenidoVertice,"white", vertice.get().toString());
         
     }
 }
