@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.PrintWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 
 import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto2.dibujantes.*;
@@ -120,24 +121,19 @@ public class proyecto2 {
         int eleccion = 0;
 
         System.out.println("El Codigo de tu SVG es: " + "\n" );
-        /*** 
         System.out.println(graficador.graficar());
         try {
             int nombreArchivo = 1;
-            String ruta = "/ruta/" + nombreArchivo + ".svg";
+            String ruta = nombreArchivo + ".svg";
             String contenido = graficador.graficar();
             File file = new File(ruta);
-            // Si el archivo no existe es creado
-            if (!file.exists()) {
-                file.createNewFile();
-            }
+            File definitivo = file;
 
-            // Si el archivo ya existe 
-            if (file.exists()) {
-                nombreArchivo++;
+             if (definitivo.exists()) {
+                definitivo.createNewFile();
             }
-
-            FileWriter fw = new FileWriter(file);
+            
+            FileWriter fw = new FileWriter(definitivo);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(contenido);
             bw.close();
@@ -145,12 +141,10 @@ public class proyecto2 {
             e.printStackTrace();
         }
     
-        System.out.println("Tu SVG se genero y guardo exitosamente en la raiz de esta carpeta " + "\n" );
-
-        ***/
+        System.out.println("\nTu SVG se genero y guardo exitosamente en la raiz de esta carpeta " + "\n" );
 
 
     }
 
-    
+
 }
