@@ -1,6 +1,10 @@
 package mx.unam.ciencias.edd.proyecto2;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto2.dibujantes.*;
@@ -55,23 +59,23 @@ public class proyecto2 {
             archivo = args[0];
         }
     
-        BufferedReader flujoEntrada = Entrada.abrirEntrada(archivo);
-        Estructura estructuraDeDatos = Entrada.identificaEstructura(flujoEntrada);
+        BufferedReader flujoEntrada = parametrosPrograma.abrirEntrada(archivo);
+        estructuras estructuraDeDatos = parametrosPrograma.doxeaLaEstructura(flujoEntrada);
 
         if(estructuraDeDatos == null){
-            Entrada.cierraEntrada(flujoEntrada);
+            parametrosPrograma.cierraEntrada(flujoEntrada);
             System.out.println("Tu entrada es vacia, no hay nada que graficar, ingresa una estructura (válida) por favor =D");
             System.exit(1);
         }
 
-        if(estructuraDeDatos == Estructura.estructuraFalsa){
-            Entrada.cierraEntrada(flujoEntrada);
+        if(estructuraDeDatos == estructuras.estructuraFalsa){
+            parametrosPrograma.cierraEntrada(flujoEntrada);
             System.out.println("Tu estructura de datos no es válida, ingresa una estructura válida por favor =D");
             System.exit(1);
         }
 
-        Lista<Integer> datos = Entrada.leerEntrada(flujoEntrada);
-        Entrada.cierraEntrada(flujoEntrada);
+        Lista<Integer> datos = parametrosPrograma.leerEntrada(flujoEntrada);
+        parametrosPrograma.cierraEntrada(flujoEntrada);
 
 
         dibujameLaEstructura<Integer> graficador;
@@ -113,8 +117,37 @@ public class proyecto2 {
 
         }
 
-        
+        int eleccion = 0;
+
+        System.out.println("El Codigo de tu SVG es: " + "\n" );
+        /*** 
         System.out.println(graficador.graficar());
+        try {
+            int nombreArchivo = 1;
+            String ruta = "/ruta/" + nombreArchivo + ".svg";
+            String contenido = graficador.graficar();
+            File file = new File(ruta);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            // Si el archivo ya existe 
+            if (file.exists()) {
+                nombreArchivo++;
+            }
+
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(contenido);
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        System.out.println("Tu SVG se genero y guardo exitosamente en la raiz de esta carpeta " + "\n" );
+
+        ***/
 
 
     }

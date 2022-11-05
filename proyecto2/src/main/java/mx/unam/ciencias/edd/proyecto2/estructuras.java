@@ -3,7 +3,7 @@ package mx.unam.ciencias.edd.proyecto2;
 /**
  * Enumeración con las estructuras de datos que podemos representar.
  */
-public enum Estructura {
+public enum estructuras {
     estructuraLista,
     estructuraPila,
     estructuraCola,
@@ -18,7 +18,7 @@ public enum Estructura {
      * Regresa la enumeración correspondiente a la representación como cadena
      * de texto recibida. Regresa estructuraFalsa cuando el texto no es una estructura Verdadera
      */
-    public static Estructura invocaLaEstructura(String estructura){
+    public static estructuras invocaLaEstructura(String estructura){
         switch(estructura){
             case "Lista":                
             return estructuraLista;

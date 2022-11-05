@@ -8,22 +8,22 @@ import java.io.IOException;
 import mx.unam.ciencias.edd.*;
 
 /**
- * Clase para encapsular los métodos correspondientes a
+ * Clase para tener control de los métodos correspondientes a
  * la entrada del programa.
  */
-public class Entrada {
+public class parametrosPrograma {
 
     /**
      * Constructor privado para evitar instanciasiones
      */
-    private Entrada() {  }
+    private parametrosPrograma() {}
 
     /* Método privado que se encarga de abrir el flujo de entrada. */
-    public static BufferedReader abrirEntrada(String archivo) {
-        if (archivo != null)
-            try {
+    public static BufferedReader abrirEntrada(String archivo){
+        if(archivo != null)
+            try{
                 return new BufferedReader(new InputStreamReader(new FileInputStream(archivo)));
-            } catch (IOException ioe) {
+            }catch(IOException ioe){
                 System.out.printf("El archivo no ha podido ser leido.\n", archivo);
                 System.exit(1);
             }
@@ -32,45 +32,46 @@ public class Entrada {
     }
 
     /* Cierra el flujo de entrada. */
-    public static void cierraEntrada(BufferedReader entrada) {
-        try {
+    public static void cierraEntrada(BufferedReader entrada){
+        try{
             entrada.close();
-        } catch(IOException ioe) {}
+        }catch(IOException ioe) {}
     }
 
     /**
      * Método privado para recuperar los elementos en la entrada que componen
      * la estructura de datos.
      */
-    public static Lista<Integer> leerEntrada(BufferedReader entrada) {
+    public static Lista<Integer> leerEntrada(BufferedReader entrada){
         Lista<Integer> coleccion = new Lista<>();
         String numero = "";
         int letraInt;
 
         try{
-            while((letraInt = entrada.read()) != -1){
-                char letra = (char) letraInt;
 
-                // Ignoramos hasta el final de la línea si encontramos un #.
-                if (letra == '#') {
+            while((letraInt = entrada.read()) != -1){
+                char caracter = (char) letraInt;
+
+                if (caracter == '#'){
                     entrada.readLine();
                     continue;
                 }
-                if(letra <= 32) {
+                if(caracter <= 32){
                     if (!numero.isEmpty()){
                         coleccion.agrega(Integer.parseInt(numero));
                     }
                     numero = "";
-                }else if(Character.isDigit(letra))
-                        numero += String.valueOf(letra);
-                else if(Character.isDigit(letra))
-                    numero += String.valueOf(letra);
+
+                }else if(Character.isDigit(caracter))
+                        numero += String.valueOf(caracter);
+                else if(Character.isDigit(caracter))
+                    numero += String.valueOf(caracter);
                 else{
-                    System.out.printf("El caracter siguiente no es valido borralo e intentalo otravez por favor: %c\n", letra);
+                    System.out.printf("El caracter siguiente no es valido borralo e intentalo otravez por favor: %c\n", caracter);
                     System.exit(1);
                 }
             }
-        } catch (IOException ioe) {
+        }catch (IOException ioe){
             cierraEntrada(entrada);
             System.out.println("Algo salio terriblemente mal al leer la entrada");
             System.exit(1);
@@ -79,22 +80,22 @@ public class Entrada {
         return coleccion;
     }
 
-    public static Estructura identificaEstructura(BufferedReader entrada) {
-        String estructuraString = "";
-        char letra;
+    public static estructuras doxeaLaEstructura(BufferedReader entrada){
+        String contenidoDeLaEstructura = "";
+        char caracter;
         try{
-            while((letra = (char) entrada.read()) != -1){
-                if (letra == '#') {
+            while((caracter = (char) entrada.read()) != -1){
+                if (caracter == '#') {
                     entrada.readLine();
                     continue;
                 }
 
-                if(estructuraString.isEmpty() && letra <= 32){
+                if(contenidoDeLaEstructura.isEmpty() && caracter <= 32){
                     continue;
-                }else if((65 <= letra && letra <= 90) || (97 <= letra && letra <= 122))
-                    estructuraString += letra;
+                }else if((65 <= caracter && caracter <= 90) || (97 <= caracter && caracter <= 122))
+                    contenidoDeLaEstructura += caracter;
                 else
-                    return Estructura.invocaLaEstructura(estructuraString);
+                    return estructuras.invocaLaEstructura(contenidoDeLaEstructura);
                 
             }
         }catch(IOException ioe){
