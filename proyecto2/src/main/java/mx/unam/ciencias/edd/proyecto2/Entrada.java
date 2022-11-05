@@ -8,14 +8,13 @@ import java.io.IOException;
 import mx.unam.ciencias.edd.*;
 
 /**
- * Clase que utilizamos para encapsular los métodos correspondientes al
- * procesamiento de la entrada del programa.
+ * Clase para encapsular los métodos correspondientes a
+ * la entrada del programa.
  */
 public class Entrada {
 
     /**
-     * Constructor privado para evitar instanciación y utilizar los métodos
-     * públicos solo de manera estática.
+     * Constructor privado para evitar instanciasiones
      */
     private Entrada() {  }
 
@@ -25,7 +24,7 @@ public class Entrada {
             try {
                 return new BufferedReader(new InputStreamReader(new FileInputStream(archivo)));
             } catch (IOException ioe) {
-                System.out.printf("Error. El archivo %s no pudo ser leído.\n", archivo);
+                System.out.printf("El archivo no ha podido ser leido.\n", archivo);
                 System.exit(1);
             }
 
@@ -67,13 +66,13 @@ public class Entrada {
                 else if(Character.isDigit(letra))
                     numero += String.valueOf(letra);
                 else{
-                    System.out.printf("El archivo contiene el siguiente caracter no permitido: %c\n", letra);
+                    System.out.printf("El caracter siguiente no es valido borralo e intentalo otravez por favor: %c\n", letra);
                     System.exit(1);
                 }
             }
         } catch (IOException ioe) {
             cierraEntrada(entrada);
-            System.out.println("Ocurrió un error al leer la entrada.");
+            System.out.println("Algo salio terriblemente mal al leer la entrada");
             System.exit(1);
         }
 
@@ -95,13 +94,16 @@ public class Entrada {
                 }else if((65 <= letra && letra <= 90) || (97 <= letra && letra <= 122))
                     estructuraString += letra;
                 else
-                    return Estructura.getEstructura(estructuraString);
+                    return Estructura.invocaLaEstructura(estructuraString);
+                
             }
         }catch(IOException ioe){
-            System.out.println("Error al leer la entrada.");
+            System.out.println("Algo salio terriblemente mal al leer la entrada");
             System.exit(1);
         }
 
         return null;
+
     }
+
 }

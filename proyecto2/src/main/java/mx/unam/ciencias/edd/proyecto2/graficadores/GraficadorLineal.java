@@ -31,6 +31,7 @@ public abstract class GraficadorLineal<T> extends GraficadorEstructura<T> {
         borde = 10;
         nMaximoEnVertice = 3;
         this.iterable = iterable;
+        
     }
 
     /**
