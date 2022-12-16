@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto3.dibujantes.*;
-import mx.unam.ciencias.edd.proyecto3.dibujantes.arboles.*;
 import mx.unam.ciencias.edd.proyecto3.dibujantes.otros.*;
 
 /**

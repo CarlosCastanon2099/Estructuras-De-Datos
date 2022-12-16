@@ -14,7 +14,7 @@ import java.util.Set;
 	 * 25 Jun 2020
 	 *
 	 */
-	public class PrimeMazeGenerator implements Runnable {
+	public class PrimeMazeGenerator {
 
 		private static final int[][] DIRECTIONS = { //distance of 2 to each side
 				{ 0 ,-2}, // north
@@ -23,105 +23,93 @@ import java.util.Set;
 				{-2 , 0}, // west
 		};
 
-		private long delay = 0;
-		private final CellModel[][] cells;
+		private final Tablero[][] cuadritos;
 		private final Random random;
 
-		public PrimeMazeGenerator(CellModel[][] cells) {
-			this.cells = cells;
+		public PrimeMazeGenerator(Tablero[][] cuadritos) {
+			this.cuadritos = cuadritos;
 			random = new Random();
-		}
-
-		@Override
-		public void run() {
-			primMazeGeneration();
-		}
-
-		public void execute() {
-			new Thread(this).start();
 		}
 
 		void primMazeGeneration() {
 
-			//Start with a grid full of cellModelViews in state wall (not a path).
-			for(int i = 0; i < cells.length; i++){
-				for(int j = 0; j < cells[0].length ; j++){
-					cells[i][j].setWall(true);
+			//Start with a grid full of cuadritosViews in state wall (not a path).
+			for(int i = 0; i < cuadritos.length; i++){
+				for(int j = 0; j < cuadritos[0].length ; j++){
+					cuadritos[i][j].estadoMuro(true);
 				}
 			}
 
 			//Pick a random cell
-			int x = random.nextInt(cells.length);
-			int y = random.nextInt(cells[0].length);
+			int x = random.nextInt(cuadritos.length);
+			int y = random.nextInt(cuadritos[0].length);
 
-			cells[x][y].setWall(false); //set cell to path
+			cuadritos[x][y].estadoMuro(false); //set cell to path
 			//Compute cell frontier and add it to a frontier collection
-			Set<CellModel> frontierCells = new HashSet<>(frontierCellsOf(cells[x][y]));
+			Set<Tablero> lineasFronteras = new HashSet<>(lineasFronterasOf(cuadritos[x][y]));
 
-			while (!frontierCells.isEmpty()){
+			while (!lineasFronteras.isEmpty()){
 
 				//Pick a random cell from the frontier collection
-				CellModel frontierCell = frontierCells.stream().skip(random.nextInt(frontierCells.size())).findFirst().orElse(null);
+				Tablero lineasFrontera = lineasFronteras.stream().skip(random.nextInt(lineasFronteras.size())).findFirst().orElse(null);
 
-				//Get its neighbors: cells in distance 2 in state path (no wall)
-				List<CellModel> frontierNeighbors =  passageCellsOf(frontierCell);
+				//Get its neighbors: cuadritos in distance 2 in state path (no wall)
+				List<Tablero> vecinosInmediatos =  passageCellsOf(lineasFrontera);
 
-				if(!frontierNeighbors.isEmpty()) {
-					//Pick a random neighbor
-					CellModel neighbor = frontierNeighbors.get(random.nextInt(frontierNeighbors.size()));
-					//Connect the frontier cell with the neighbor
-					connect(frontierCell, neighbor);
+				if(!vecinosInmediatos.isEmpty()) {
+					//Pick a random vecino
+					Tablero vecino = vecinosInmediatos.get(random.nextInt(vecinosInmediatos.size()));
+					//Connect the frontier cell with the vecino
+					connect(lineasFrontera, vecino);
 				}
 
-				//Compute the frontier cells of the chosen frontier cell and add them to the frontier collection
-				frontierCells.addAll(frontierCellsOf(frontierCell));
+				//Compute the frontier cuadritos of the chosen frontier cell and add them to the frontier collection
+				lineasFronteras.addAll(lineasFronterasOf(lineasFrontera));
 				//Remove frontier cell from the frontier collection
-				frontierCells.remove( frontierCell);
-				try {
-					Thread.sleep(delay);
-				} catch (InterruptedException ex) { ex.printStackTrace();}
+				lineasFronteras.remove( lineasFrontera);
+				
 			}
 		}
 
-		//Frontier cells: wall cells in a distance of 2
-		private List<CellModel> frontierCellsOf(CellModel cell) {
+		//Frontier cuadritos: wall cuadritos in a distance of 2
+		private List<Tablero> lineasFronterasOf(Tablero cell) {
 
 			return cellsAround(cell, true);
 		}
 
-		//Frontier cells: passage (no wall) cells in a distance of 2
-		private List<CellModel> passageCellsOf(CellModel cell) {
+		//Frontier cuadritos: passage (no wall) cuadritos in a distance of 2
+		private List<Tablero> passageCellsOf(Tablero cell) {
 
 			return cellsAround(cell, false);
 		}
 
-		private List<CellModel> cellsAround(CellModel cell, boolean isWall) {
+		private List<Tablero> cellsAround(Tablero cell, boolean esUnMuro) {
 
-			List<CellModel> frontier = new ArrayList<>();
+			List<Tablero> frontier = new ArrayList<>();
 			for(int[] direction : DIRECTIONS){
-				int newRow = cell.getRow() + direction[0];
-				int newCol = cell.getColumn() + direction[1];
-				if(isValidPosition(newRow, newCol) && cells[newRow][newCol].isWall() == isWall){
-					frontier.add(cells[newRow][newCol]);
+				int newRow = cell.getFilas() + direction[0];
+				int newCol = cell.getColumnas() + direction[1];
+				if(isValidPosition(newRow, newCol) && cuadritos[newRow][newCol].esUnMuro() == esUnMuro){
+					frontier.add(cuadritos[newRow][newCol]);
 				}
 			}
 
 			return frontier;
 		}
 
-		//connects cells which are distance 2 apart
-		private void connect( CellModel frontierCellModelView, CellModel neighbour) {
+		//connects cuadritos which are distance 2 apart
+		private void connect( Tablero frontiercuadritosView, Tablero neighbour) {
 
-			int inBetweenRow = (neighbour.getRow() + frontierCellModelView.getRow())/2;
-			int inBetweenCol = (neighbour.getColumn() + frontierCellModelView.getColumn())/2;
-			frontierCellModelView.setWall(false);
-			cells[inBetweenRow][inBetweenCol].setWall(false);
-			neighbour.setWall(false);
+			int inBetweenRow = (neighbour.getFilas() + frontiercuadritosView.getFilas())/2;
+			int inBetweenCol = (neighbour.getColumnas() + frontiercuadritosView.getColumnas())/2;
+			frontiercuadritosView.estadoMuro(false);
+			cuadritos[inBetweenRow][inBetweenCol].estadoMuro(false);
+			neighbour.estadoMuro(false);
 		}
 
-		private boolean isValidPosition(int row, int col) {
-			return row >= 0 && row < cells.length
-						&& col >= 0 && col < cells[0].length;
+		private boolean isValidPosition(int filas, int col) {
+			return filas >= 0 && filas < cuadritos.length
+						&& col >= 0 && col < cuadritos[0].length;
 		}
 
 		public PrimeMazeGenerator setDelay(long delay) {
