@@ -6,9 +6,7 @@
 ---------------------------------------------------
 
 
-**Alumno**
-
-319053315 - Castañón Maldonado Carlos Emilio
+**Carlos C**
 
 
 ---
