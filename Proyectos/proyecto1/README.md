@@ -80,5 +80,5 @@ java -jar target/proyecto1.jar hombres4.txt mortal.txt -r -o prueba.txt
 
 <div align="justify">
 Todo lo anterior fue solo un ejemplo de uso, el programa tambien puede ordenar los txt de otras locaciones y con infinidad de combinaciones que no puse.
-  Como observacion yo contemplo que al descomprimir el tar.gz el orden de todo queda como proyecto1/src, tal que cuando pongo que se ejecute algo desde /proyecto1 me refiero a la carpeta en la que se encuentra src y los archivos txt de prueba, sin mas me despido y como ultima cosa este proyecto estuvo muy talachudo pero me gusto.
+  Como observacion yo contemplo que al descomprimir el tar.gz el orden de todo queda como proyecto1/src, tal que cuando pongo que se ejecute algo desde /proyecto1 me refiero a la carpeta en la que se encuentra src y los archivos txt de prueba.
 </div>
